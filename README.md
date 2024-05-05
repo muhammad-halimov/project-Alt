@@ -1,4 +1,4 @@
-# Django Starter V5
+# Project Alt
 
 # Installing & Running
 - Install python
@@ -40,7 +40,7 @@ CTRL + C - To stop server
 
 Licensed under:
 
-* GPL3 license (https://www.gnu.org/licenses/gpl-3.0.en.html)
+* MIT License
 
 ## Targeted OS
 
