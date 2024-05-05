@@ -1,0 +1,102 @@
+{% extends 'index.htm' %}
+{% load static %}
+{% block title %} Неймарк | Монитор {% endblock %}
+{% block content %}
+    <main>
+        <div class="container">
+            <div class="user_info_block info_competition_block anim">
+                <div class="head_advantage_card head_info_competition">
+                    <div class="p-3 card_type_btn">{{ competition.organization }}</div>
+                    <div class="p-3 card_type_btn">{{ competition.start_time }} — {{ competition.end_time }}</div>
+                </div>
+                <!-- ограничение в 25 символов снимается -->
+                <p class="txt30 adventage_title wh">{{ competition.name }}</p>
+                <div class="glows"></div>
+                <div style="color: white">{{ competition.description }}</div>
+            </div>
+        </div>
+
+        <img class="shape_img" data-speed="-2" src="{% static 'assets/img/photo.png' %}">
+
+        <div class="container">
+            <!-- ---------------------------------------------------- -->
+            <div class="user_info_block description_block cart_block anim">
+                <div class="glows"></div>
+                <nav class="profile_nav">
+                    <a href="#" class="txt20_medium active_nav_link wh">Монитор</a>
+                    <a href="#" class="txt20_medium wh">Задачи</a>
+                    <a href="#" class="txt20_medium wh">Статус</a>
+                </nav>
+
+                <div class="monitor_block block active_block">
+                    <div class="txt30 wh">Монитор</div>
+                    <table class="table white_table table_best_users p-4">
+                        <thead>
+                        <tr>
+                            <th scope="col">Место</th>
+                            <th scope="col">Логин</th>
+                            <th scope="col">Баллы</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for participant in competition.participants.all %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>@{{ participant.login }}</td>
+                            <td>0</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tasks_block block">
+                    <div class="txt30 wh">Задачи</div>
+                    <div class="tasks">
+                        {% for task in competition.tasks.all %}
+                            <a href="{% url 'task' task.id %}">
+                                <div class="one_task">
+                                    <div class="row task_info">
+                                        <div class="col-1">
+                                            <p class="txt20_bold">{{ forloop.counter }}</p>
+                                        </div>
+                                        <div class="col-11">
+                                            <p class="txt20_bold">{{ task.name }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="status_block block">
+                    <p class="txt30">Статус</p>
+                    <div class="statuses">
+                        <!— это конкретно посылки владельца аккаунта-->
+                        <table class="table white_table table_best_users p-4">
+                            <thead>
+                            <tr>
+                                <th scope="col">Посылка</th>
+                                <th scope="col">Дата и время</th>
+                                <th scope="col">Название</th>
+                                <th scope="col">Язык</th>
+                                <th scope="col">Баллы</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for hist in history %}
+                                <tr>
+                                    <th scope="row">{{ hist.created }}</th>
+                                    <td>{{ hist.updated }}</td>
+                                    <td>{{ hist.task.name }}</td>
+                                    <td>Python</td>
+                                    <td>0</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "index.htm" %}
+{% load static %}
+{% block title %} Неймарк | {{ task.name }}  {% endblock %}
+{% block content %}
+    <main>
+        <div class="container">
+            <div class="task anim">
+                <p class="task_name txt48_light">{{ task.name }}</p>
+                <p class="task_time">Ограничение по времени: {{ task.time_limit }} сек.</p>
+                <p class="task_memory">Ограничение по памяти: {{ task.memory_limit }} МБ</p>
+                <div class="task_text">
+                    {{ task.description }}
+                </div>
+                <div class="input_output_data_block">
+                    <p class="txt20_medium">Входные данные: {{ task.entry }}</p>
+                    <p class="txt20_medium">Выходные данные: {{ task.output }}</p>
+                    <div class="task_table">
+                        <div class="row task_table_row">
+                            <div class="col-6">
+                                <p class="txt30">Входные данные</p>
+                                <p>{{ task.example_entry }}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="txt30">Выходные данные</p>
+                                <p>{{ task.example_output }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="send_solution_block">
+                <p class="task_name txt48_light wh">Отправить решение</p>
+                <form method="post" action="{% url 'task_log' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                    <div class="language_selector">
+                        <select class="language" name="language" id="language">
+                            <option value="Python">Python</option>
+                            <option value="C++">C++</option>
+                        </select>
+                    </div>
+
+                    <div class="solution_input">
+                        <textarea name="text" id="" cols="60" rows="22"></textarea>
+                    </div>
+
+                    <input type="submit" value="Отправить" id="btn_send_solution" class="btn_white btn_send_solution">
+                </form>
+            </div>
+            <img class="shape_img" data-speed="-2" src="{% static 'assets/img/photo.png' %}">
+        </div>
+    </main>
+{% endblock %}

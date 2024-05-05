@@ -1,0 +1,124 @@
+{% extends "index.htm" %}
+{% load static %}
+{% block title %} Неймарк | Главная  {% endblock %}
+{% block content %}
+    <main>
+        <div class="container">
+            <div class="row intro_block">
+                <div class="col intro_first_col">
+                    <p class="txt20_bold anim">РЕЙТИНГИ НЕЙМАРК</p>
+                    <p class="txt90_bold anim">НЕЙМАРК. <span class="second_word">Кубок</span></p>
+                    <p class="anim">Площадка посвященная кубку по олимпиадному программированию. Площадка разработана с целью развития IT - навыков среди школьников и создания стимулирующей среды для их обучения.</p>
+
+                </div>
+                <div class="buttons_intro">
+                    <a href="" class="btn_white intro_transparent_btn anim">Lorem ipsum dolor</a>
+                    <a href="" class="btn_white intro_transparent_btn anim">Lorem ipsum dolor</a>
+                </div>
+                <div class="col">
+                    <img class="shape_img" data-speed="-2" src="{% static 'assets/img/photo.png' %}">
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="description_block">
+                <div class="row description_block_row">
+                    <div class="col-4">
+                        <p class="txt48_medium anim">О нас</p>
+                        <p class="txt20_medium anim">
+                            Наша цель - не только поддерживать участников в их стремлении к программированию, но и создать общественное признание и поощрение лучших из них.<br><br> Благодаря формированию рейтинга на основе результатов турниров, мы сможем выявить талантливых и перспективных программистов, подготовленных к будущей карьере в IT-индустрии.
+                        </p></div>
+
+                    <div class="col-7"> <p class="txt48_light anim">Открой свой потенциал на <span class="light_violet">НЕЙМАРК.КУБОК</span> и шагай к <span class="dark_violet">знаниям</span>, покоряя вершины</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="advantages_block">
+                <div class="advantages_header">
+                    <!-- ссылка на все олимпиады -->
+                    <a href="{% url 'competition' %}"><p class="txt48_medium wh">Ближайшие олимпиады</p></a>
+                </div>
+
+                <div class="advantages_cards">
+                    <div class="row g-2">
+                        {% for competition in competitions %}
+                            <div class="col-4">
+                                <a href="">
+                                    <div class="card_advantage">
+                                        <div class="head_advantage_card">
+                                            <div class="p-3 card_type_btn">{{ competition.start_time }}</div>
+                                            <a href="{% url 'monitor_unique' competition.id %}"><img src="{% static 'assets/img/violet_arrow.png' %}"></a>
+                                        </div>
+                                        <!-- максимум 25 символов в названии олимпиады -->
+                                        <p class="txt30 adventage_title">{{ competition.name }}</p>
+                                        <p class="txt90_bold">{{ competition.created }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <img class="shape_img shape_img_small" data-speed="-2" src="{% static 'assets/img/wave.png' %}">
+
+        <div class="second_section">
+
+            <div class="container">
+                <!-- ссылка на рейтинг пользователей -->
+                <a href=""><p class="txt48_bold">ТОП пользователи</p></a>
+                <!--максимум 10 лучших участников -->
+                <table class="table table-dark table_best_users p-4">
+                    <thead>
+                    <tr>
+                        <th scope="col">Место</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Фамилия</th>
+                        <th scope="col">Логин</th>
+                        <th scope="col">Почта</th>
+                        <th scope="col">Баллы</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <th scope="row">{{ user.id }}</th>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.surname }}</td>
+                        <td>{{ user.login }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>1312</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="container">
+                <div class="services_block">
+                    <div class="img_services_box">
+                        <img class="services_img" src="{% static 'assets/img/campus.png' %}">
+                        <div class="small_description">
+                            <p class="txt30">Неймарк</p>
+                            <p class="txt20_medium">Межвузовский ИТ-кампус мирового уровня в Нижнем Новгороде</p>
+                            <div class="percent">
+                                <p class="txt48_medium">~7000</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="services_description txt48_medium">
+                        Наш кампус Неймарк — <span class="light_violet">инновационный центр</span> разработки программного обеспечения. Объединяя экспертов и таланты, мы создаем передовые технологии.
+                    </p>
+
+                </div>
+            </div>
+
+
+        </div>
+    </main>
+{% endblock %}

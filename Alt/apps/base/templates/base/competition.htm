@@ -1,0 +1,32 @@
+{% extends "index.htm" %}
+{% load static %}
+{% block title %} Неймарк | Соревнования  {% endblock %}
+{% block content %}
+    <main>
+        <div class="container all_competitions_block">
+            <p class="txt48_medium wh anim">Предстоящие олимпиады</p>
+            <img class="shape_img" data-speed="-2" src="{% static 'assets/img/photo.png' %}">
+            <div class="box anim">
+                <!-- новые сверху, старые снизу-->
+                <ul id="first-list">
+                    <!-- если олимпиада с неймарка то блок такой-->
+                    {% for competition in competitions %}
+                        <li>
+                            <span></span>
+                            <a href="{% url 'monitor_unique' competition.id %}"><div class="title">{{ competition.name }}</div></a>
+                            <div class="info gr">Организатор: <span class="uppercase">{{ competition.organization }}</span></div>
+                            <div class="info gr">Дата и время начала: {{ competition.start_time }}</div>
+                            <div class="info gr">Дата и время конца: {{ competition.end_time }}</div>
+<!--                            <div class="info gr"><a href=" https://codeforces.com/blog/entry/128513">Ссылка: https://codeforces.com/blog/entry/128513</a></div>-->
+
+                            <div class="time">
+                                <span class="date">{{ competition.description }}</span>
+                                <span class="gr">{{ competition.created }}</span>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "index.htm" %}
+{% load static %}
+{% block title %} Неймарк | {{ request.user }}  {% endblock %}
+{% block content %}
+    <main>
+        <div class="container">
+            <div class=" user_info_block anim">
+                <div class="row user_info">
+                    <div class="col-2">
+                        <div class="user_photo_box">
+                            {% if data.0.avatar %}
+                                <img src="{{ data.0.avatar }}">
+                            {% else %}
+                                <img src="{{ request.user.avatar.url }}">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="user_info_txt">
+                            <p class="txt30 wh">{{ request.user.username }}</p>
+                            <p class="txt20_medium wh">@{{ request.user.login }}</p>
+                            <p class="txt16_grey">{{ request.user.email }}</p>
+                            <div class="edit_profile_btn">
+                                <a href="{% url 'edit_profile' %}" class="btn_white">EDIT PROFILE</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glows"></div>
+            </div>
+        </div>
+
+        <img class="shape_img" data-speed="-2" src="{% static 'assets/img/photo.png' %}">
+
+        <div class="container">
+            <div class="user_info_block cart_block anim">
+                <div class="glows"></div>
+                <div class="platforms_block">
+                    <div class="txt30 wh">Подключенные платформы</div>
+                    {% if request.user.codeforce %}
+                        <table class="table white_table table_best_users p-4">
+                            <thead>
+                            <tr>
+                                <th scope="col">Платформа</th>
+                                <th scope="col">Логин</th>
+                                <th scope="col">Рейтинг</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><img class="added_platform_logo" src="{% static 'assets/img/codeforces.svg' %}"></td>
+                                <td>@{{ request.user.codeforce }}</td>
+                                <td>{% if data.0.current_rate %} {{ data.0.current_rate }} {% else %} 0 {% endif %}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <div style="color: #fff;">
+                            Нет подключённых платформ
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="txt30 wh">Ваша предыдущая активность</div>
+
+                    {% if data.count > 0 %}
+                <table class="table white_table table_best_users p-4">
+                    <thead>
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">Дата</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">Баллы</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for mission in data %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ mission.date }}</td>
+                            <td>{{ mission.contest_name }}</td>
+                            <td>{{ mission.current_rate }} (+{{ mission.plus_rate }})</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% else %}
+                        <div style="color: #fff">Нет активности</div>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </main>
+{% endblock %}

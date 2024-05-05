@@ -1,0 +1,72 @@
+{% extends "index.htm" %}
+{% block title %} Неймарк | Авторизация {% endblock %}
+{% block content %}
+    <main>
+        <div class="container">
+            <div class="cart_block anim reg_background_block description_block">
+                <nav class="profile_nav reg_login_nav">
+                    <a href="#" class="txt20_medium active_nav_link"> Вход </a>
+                    <a href="#" class="txt20_medium">Регистрация</a>
+                </nav>
+                <div class="login_block block active_block">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <p class="heading_txt txt30 anim wh">{{ message }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p class="heading_txt txt30 anim wh">Авторизоваться</p>
+                    {% endif %}
+                    <form method="post" class="anim">
+                        {% csrf_token %}
+                        <p class="label">Почта:</p>
+                        <input type="email" placeholder="Логин" name="email" id="login" class="area" required>
+                        <p class="form_p" id="login_p"><!--Введите корректный логин--></p>
+                        <p class="label">Пароль:</p>
+                        <input type="password" placeholder="Пароль" name="password" id="password" class="area" required>
+                        <p class="form_p" id="password_p"><!--Слишком короткий пароль--></p>
+                        <div class="buttons_block">
+                            <input type="submit" value="Войти" name="login_btn" id="btn_log" class="btn_white">
+                        </div>
+                    </form>
+                </div>
+                <div class="reg_block block ">
+                    <!--Такие же поля как у DOLOR, но у кнопок другие классы и есть обертка-->
+                    <div class="">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="heading_txt txt30 anim wh">{{ message }}</p>
+                            {% endfor %}
+                        {% else %}
+                            <p class="heading_txt txt30 anim wh">Зарегистрироваться</p>
+                        {% endif %}
+                        <form method="post" id="reg_form" class="anim">
+                            {% csrf_token %}
+                            <p class="label">Имя</p>
+                            {{ form.username }}
+                            <p class="form_p" id="name_p"><!--Введите корректное имя--></p>
+                            <p class="label">Фамилия</p>
+                            {{ form.surname }}
+                            <p class="form_p" id="surname_p"><!--Введите корректную фамилию--></p>
+                            <p class="label">Логин</p>
+                            {{ form.login }}
+                            <p class="form_p" id="login_p"><!--Введите корректный логин--></p>
+                            <p class="label">Email</p>
+                            {{ form.email }}
+                            <p class="form_p" id="email_p"><!--Введите корректную почту--></p>
+                            <p class="label">Пароль</p>
+                            {{ form.password1 }}
+                            <p class="form_p" id="password_p"><!--Слишком короткий пароль--></p>
+                            <p class="label">Пароль еще раз</p>
+                            {{ form.password2 }}
+                            <p class="form_p" id="password_repeat_p"><!--Пароли не совпадают--></p>
+                            <p><input type="checkbox" id="rules" class="area"> Согласие с правилами регистрации</p>
+                            <div class="buttons_block">
+                                <input type="submit" value="Зарегистрироваться" name="reg_btn" id="btn_reg" class="btn_white">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

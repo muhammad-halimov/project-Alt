@@ -1,0 +1,65 @@
+{% extends 'index.htm' %}
+{% load static %}
+{% block title %} Неймарк | Редактирование профиля {% endblock %}
+{% block content %}
+    <main>
+        <div class="container">
+            <div class="edit_profile">
+                <p class="txt48_medium wh anim">Редактирование профиля</p>
+                <div class="add_plarforms_block">
+                    <div class="txt30 gr anim">Платформы</div>
+                    <div class="platforms_logos_block anim">
+                        <div class="platform_logo">
+                            <img class="myImg" src="{% static 'assets/img/moodle.svg' %}" alt="Moodle">
+                        </div>
+                        <div class="platform_logo">
+                            <img class="myImg" src="{% static 'assets/img/codeforces.svg' %}" alt="Codeforces">
+                        </div>
+                    </div>
+
+                    <div id="modal_add_platform" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <p class="platform_name txt30_medium"></p>
+                            <!-- ФОРМА -->
+                            <form id="formCheckUser" method="post" action="{% url 'codeforce' %}">
+                                {% csrf_token %}
+                                <p class="label">Логин на платформе:</p>
+                                <input type="text" id="platform_login" placeholder="Ваш логин на выбранной платформе" required name="name_nick" class="area">
+                                <div class="btn_add_platform_block">
+                                    <input type="submit" value="Добавить" id="btn_add_platform" class="btn_black">
+                                </div>
+                                <div id="error_msg" style="margin: 20px 20px 0 0">
+                                    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <img class="shape_img shape_img_small" data-speed="-2" src="{% static 'assets/img/wave.png' %}">
+
+                <div class="edit_data_user">
+                    <p class="txt30 gr anim ">Данные</p>
+                    <div class="edit_profile_block anim">
+                        <!-- ФОРМА, в полях старые значения автоматически заполнены -->
+                        <form method="post">
+                            {% csrf_token %}
+                            <p class="label wh">Имя:</p>
+                            {{ form.username }}
+                            <p class="label wh">Фамилия:</p>
+                            {{ form.surname }}
+                            <p class="label wh">Логин:</p>
+                            {{ form.login }}
+                            <p class="label wh">Почта:</p>
+                            {{ form.email }}
+                            <input type="submit" value="Сохранить" id="btn_save_edit_profile" class="btn_transperent">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script defer rel="script" src="{% static 'assets/js/modal_platform.js' %}"></script>
+    <script defer rel="script" src="{% static 'assets/js/integrations.js' %}"></script>
+{% endblock %}
